@@ -47,5 +47,4 @@ public class UserDAOTest {
 	public void cleanUp() throws SQLException {
 		connection.close();
 	}
-
 }
