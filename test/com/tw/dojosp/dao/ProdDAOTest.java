@@ -1,8 +1,15 @@
 package com.tw.dojosp.dao;
 
-import java.sql.Connection;
+import static org.junit.Assert.*;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+
+import com.tw.dojosp.model.Prod;
 
 public class ProdDAOTest {
 	
@@ -14,5 +21,18 @@ public class ProdDAOTest {
 		connection = new InMemoryDatabase().getConnection();
 		prodDAO = new ProdDAO(connection);
 	}
+	
+	@Test
+	public void shouldFindAProdGivenAnId() {
+		Prod foundProd = prodDAO.findById(1);
+		Prod expectedProd = new Prod(1,"iPod",200);
+		assertEquals(expectedProd, foundProd);
+	}
+	
+	@After
+	public void tearDown() throws SQLException {
+		connection.close();
+	}
+	
 
 }
