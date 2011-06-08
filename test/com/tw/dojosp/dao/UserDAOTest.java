@@ -24,7 +24,7 @@ public class UserDAOTest {
 	}
 	
 	@Test
-	public void shouldFindAUserGivenAId() {
+	public void shouldFindAUserGivenAnId() {
 		
 		User expectedUser = new User(1,"marco");
 		User foundUser    = userDAO.findById(1);
