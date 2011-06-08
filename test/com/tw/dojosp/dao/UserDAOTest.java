@@ -1,16 +1,20 @@
 package com.tw.dojosp.dao;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.tw.dojosp.model.User;
+import com.tw.dojosp.InMemoryDatabase;
 
 public class UserDAOTest {
 	
@@ -24,23 +28,24 @@ public class UserDAOTest {
 	}
 	
 	@Test
-	public void shouldFindAUserGivenAnId() {
+	public void shouldFindAUser() {
+		Map<Integer, String> expected = new HashMap<Integer, String>();
+		expected.put(1, "Marco");
 		
-		User expectedUser = new User(1,"marco");
-		User foundUser    = userDAO.findById(1);
+		Map<Integer, String> results = userDAO.findByName("Marco");
 		
-		assertEquals(expectedUser, foundUser);
+		assertEquals(expected, results);
 	}
 	
 	@Test
-	public void shouldReturnNullIfUserNotFoundById() {
-		assertNull(userDAO.findById(999));
-	}
-	
-	@Test
-	public void shouldPopulateUserFound() {
-		User expectedUser = new User(1,"marco");
-		assertEquals(expectedUser.name(), userDAO.findById(1).name());
+	public void shouldListDevicesGivenAUserId() {
+		List<String> expected = new ArrayList<String>();
+		expected.add("iPod Nano");
+		expected.add("iPhone 4");
+		
+		List<String> results = userDAO.findDevices(1);
+		
+		assertEquals(expected, results);
 	}
 	
 	@After

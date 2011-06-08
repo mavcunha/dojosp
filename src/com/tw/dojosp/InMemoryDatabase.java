@@ -1,4 +1,4 @@
-package com.tw.dojosp.dao;
+package com.tw.dojosp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,8 +12,8 @@ public class InMemoryDatabase {
 		try {
 			connect();
 			createUsersTable();
-			createProdsTable();
-			createOrdersTable();
+			createDevicesTable();
+			createUserDeviceTable();
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -37,17 +37,17 @@ public class InMemoryDatabase {
 				.execute();
 	}
 
-	private void createProdsTable() throws SQLException {
+	private void createDevicesTable() throws SQLException {
 		connection.prepareStatement(
-				"CREATE TABLE PRODS(ID INT PRIMARY KEY, DESC VARCHAR(255), PRICE INT) AS "
-						+ "  SELECT * FROM CSVREAD('data/prods_data.csv');")
+				"CREATE TABLE DEVICES(ID INT PRIMARY KEY, DESC VARCHAR(255)) AS "
+						+ "  SELECT * FROM CSVREAD('data/devices_data.csv');")
 				.execute();
 	}
 
-	private void createOrdersTable() throws SQLException {
+	private void createUserDeviceTable() throws SQLException {
 		connection.prepareStatement(
-				"CREATE TABLE ORDERS(USER_ID INT, PROD_ID INT, QUANTITY INT) AS "
-						+ "  SELECT * FROM CSVREAD('data/orders_data.csv');")
+				"CREATE TABLE USER_DEVICE(USER_ID INT, DEV_ID INT) AS "
+						+ "  SELECT * FROM CSVREAD('data/user_device_data.csv');")
 				.execute();
 	}
 }
